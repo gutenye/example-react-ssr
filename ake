@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+export PORT="3004"
+export PATH="node_modules/.bin:$PATH"
+
+main() {
+  webpack-dev-server --inline --hot
+}
+
+build() {
+  webpack
+  webpack --config webpack.config.server.js
+}
+
+server() {
+  build
+  cd build
+  node server.js
+}
+
+case "$1" in
+  "" ) main ;;
+  b | build ) build ;;
+  server ) server ;;
+esac
